@@ -1,0 +1,6 @@
+{
+  "name": "PointCloud Pro — 3D Point Cloud Annotation & QA Studio",
+  "description": "Professional 3D LiDAR and point cloud annotation, semantic segmentation, 3D bounding-box labeling, automated quality assurance, and dataset export workstation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

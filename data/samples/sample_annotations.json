@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "format": "pointcloud_pro_v1",
+  "exported_at": "2026-10-14T22:41:13.539421Z",
+  "scene_metadata": {
+    "file_name": "urban_intersection.pcd",
+    "point_count": 2395,
+    "bounds_min": [
+      -24.99151422608318,
+      -24.926897973221113,
+      -0.09463629438373146
+    ],
+    "bounds_max": [
+      24.99539142546046,
+      24.964123420636334,
+      7.979648344083767
+    ],
+    "dimensions": [
+      49.98690565154364,
+      49.89102139385744,
+      8.074284638467498
+    ],
+    "format": "PCD",
+    "has_intensity": true,
+    "has_rgb": true,
+    "has_labels": true
+  },
+  "summary": {
+    "total_annotations": 6,
+    "approved": 0,
+    "needs_correction": 0,
+    "pending": 6,
+    "qa_issues_detected": 0
+  },
+  "annotations": [
+    {
+      "id": "box-car-01",
+      "class_name": "car",
+      "center": [
+        6.5,
+        4.2,
+        0.8
+      ],
+      "dimensions": [
+        4.5,
+        1.9,
+        1.6
+      ],
+      "rotation": [
+        0.2617993877991494,
+        0.0,
+        0.0
+      ],
+      "review_status": "Pending",
+      "review_note": "",
+      "point_count": 184,
+      "confidence": 0.98,
+      "instance_id": 1
+    },
+    {
+      "id": "box-car-02",
+      "class_name": "car",
+      "center": [
+        -5.2,
+        11.0,
+        0.8
+      ],
+      "dimensions": [
+        4.5,
+        1.9,
+        1.6
+      ],
+      "rotation": [
+        -0.17453292519943295,
+        0.0,
+        0.0
+      ],
+      "review_status": "Pending",
+      "review_note": "",
+      "point_count": 153,
+      "confidence": 0.98,
+      "instance_id": 2
+    },
+    {
+      "id": "box-truck-01",
+      "class_name": "truck",
+      "center": [
+        7.8,
+        -12.5,
+        1.6
+      ],
+      "dimensions": [
+        8.5,
+        2.5,
+        3.2
+      ],
+      "rotation": [
+        1.5707963267948966,
+        0.0,
+        0.0
+      ],
+      "review_status": "Pending",
+      "review_note": "",
+      "point_count": 252,
+      "confidence": 0.98,
+      "instance_id": 3
+    },
+    {
+      "id": "box-ped-01",
+      "class_name": "pedestrian",
+      "center": [
+        -3.5,
+        2.8,
+        0.88
+      ],
+      "dimensions": [
+        0.6,
+        0.6,
+        1.75
+      ],
+      "rotation": [
+        0.7853981633974483,
+        0.0,
+        0.0
+      ],
+      "review_status": "Pending",
+      "review_note": "",
+      "point_count": 45,
+      "confidence": 0.98,
+      "instance_id": 4
+    },
+    {
+      "id": "box-ped-02",
+      "class_name": "pedestrian",
+      "center": [
+        -3.0,
+        3.4,
+        0.88
+      ],
+      "dimensions": [
+        0.6,
+        0.6,
+        1.75
+      ],
+      "rotation": [
+        0.6981317007977318,
+        0.0,
+        0.0
+      ],
+      "review_status": "Pending",
+      "review_note": "",
+      "point_count": 40,
+      "confidence": 0.98,
+      "instance_id": 5
+    },
+    {
+      "id": "box-cyclist-01",
+      "class_name": "cyclist",
+      "center": [
+        3.2,
+        -4.5,
+        0.85
+      ],
+      "dimensions": [
+        1.8,
+        0.7,
+        1.7
+      ],
+      "rotation": [
+        -0.5235987755982988,
+        0.0,
+        0.0
+      ],
+      "review_status": "Pending",
+      "review_note": "",
+      "point_count": 67,
+      "confidence": 0.98,
+      "instance_id": 6
+    }
+  ],
+  "qa_report": [],
+  "audit_trail": [
+    {
+      "timestamp": "2026-10-14T12:00:00Z",
+      "operator": "Lead-Annotator",
+      "action": "Generated sample benchmark"
+    }
+  ]
+}
