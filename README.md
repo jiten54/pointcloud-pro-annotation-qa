@@ -1,190 +1,150 @@
-# PointCloud Pro — 3D Point Cloud Annotation & Quality Assurance Studio
+# PointCloud Pro — 3D Point Cloud Annotation & QA Studio
 
-[![Tests](https://img.shields.io/badge/tests-28%20passed-brightgreen.svg)](#testing-and-engineering)
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](#technology-stack)
-[![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](#docker-deployment)
-[![License](https://img.shields.io/badge/license-Apache--2.0-lightgrey.svg)](LICENSE)
+An interactive 3D point-cloud annotation and quality assurance platform designed to support object labeling, 3D bounding-box inspection, semantic segmentation, annotation validation, and structured dataset export.
 
-A portfolio-grade 3D LiDAR annotation, semantic segmentation, and automated Quality Assurance (QA) studio tailored to the high-standard workflows of a **Remote 3D Point Cloud Annotator & Perception QA Specialist**.
+## Overview
 
----
+PointCloud Pro is a portfolio project focused on practical 3D point-cloud annotation workflows used in computer vision, LiDAR data processing, robotics, and autonomous-driving datasets.
 
-## 🌟 Key Capabilities
+The application provides a visual workspace for inspecting point-cloud scenes, managing object annotations, reviewing annotation quality, and preparing structured outputs for downstream machine-learning pipelines.
 
-1. **Multi-Format Dataset Ingestion**
-   - High-performance parsers for **PCD** (ASCII v0.7), **PLY** (ASCII), and **XYZ / PTS / TXT** point clouds.
-   - Rigorous file integrity validation: immediate detection and descriptive error reporting for empty files, truncated lines, non-numeric values, or missing headers.
-   - Real-time metadata computation: total point counts, coordinate span extents ($X, Y, Z$ dimensions), spatial bounds ($\min/\max$), and attribute detection (reflectivity intensity, RGB, semantic labels).
+## Key Features
 
-2. **Interactive 3D Scene Perception Viewer**
-   - Dual-engine architecture:
-     - **Web Studio (Port 3000)**: Hardware-accelerated Three.js WebGL canvas with camera presets (Perspective 3D, Top-Down BEV, Front, Side), OrbitControls, point sizing, and coordinate triad ($X=\text{Red}, Y=\text{Green}, Z=\text{Blue}$).
-     - **Python Studio (Streamlit + Open3D)**: Native Python workstation with 3D scatter plots and point attribute inspectors.
-   - Dynamic point cloud colorization:
-     - **Semantic Class** (color-coded by perception classes)
-     - **Elevation / Z-Height** (Turbo / Viridis elevation gradient)
-     - **Reflectivity Intensity** (LiDAR return signal strength)
-     - **Instance ID** (unique per-object grouping)
+### 3D Point-Cloud Visualization
+- Load and inspect supported point-cloud datasets.
+- Navigate scenes using 3D rotation, zoom, and pan.
+- Explore point-cloud shading modes, including semantic and height-based views, where supported.
+- Inspect scene metadata and point counts.
 
-3. **3D Oriented Bounding Box Annotation**
-   - Standard 10 perception classes: `car`, `truck`, `bus`, `pedestrian`, `cyclist`, `motorcycle`, `road`, `vegetation`, `building`, `other`.
-   - Complete 3D bounding box parameterization:
-     - Center coordinates: $[x, y, z]$ in sensor frame (meters)
-     - Bounding extents: $[dx, dy, dz]$ (length, width, height in meters)
-     - Orientation: $[\text{yaw}, \text{pitch}, \text{roll}]$ in radians / degrees
-     - Directional heading arrow displaying vehicle forward trajectory
-   - Interactive creation, selection, fine-tuning, coordinate translation, yaw rotation, and dimension scaling.
-   - Invariant enforcement: strictly positive dimensions ($>0$), finite numeric coordinates, and uniqueness of annotation IDs.
+### 3D Object Annotation
+- Organize annotations by object class.
+- Create and manage 3D bounding boxes.
+- Inspect and adjust box dimensions and orientation.
+- Track annotation review status.
+- Search and select annotations by ID or class.
 
-4. **Point-Level Semantic & Instance Segmentation**
-   - Precise point-to-label correspondence preservation.
-   - Point-in-oriented-box algorithm testing spatial containment in rotated 3D boxes.
-   - Distinction between semantic class IDs (e.g., class 4 = Car) and instance IDs (e.g., Car #1 vs Car #2).
-   - In-box point auto-labeling and semantic distribution analytics.
+### Semantic Segmentation
+- Organize point-level labels by semantic category.
+- Inspect segmented objects and their spatial boundaries.
+- Support structured labels for downstream data-processing workflows.
 
-5. **Automated Quality Assurance (QA) Engine**
-   - **RULE-QA-001**: Duplicate annotation ID collision detection.
-   - **RULE-QA-002**: Invalid or unmapped semantic class verification.
-   - **RULE-QA-003**: Non-positive or infinite box dimension errors.
-   - **RULE-QA-004**: Out-of-bounds sensor range validation ($>120\text{m}$).
-   - **RULE-QA-005**: Ground penetration check ($z_{\text{base}} < -1.5\text{m}$).
-   - **RULE-QA-006 / 007**: Physical dimension anomaly detection (oversized or undersized envelopes compared to nominal vehicle/pedestrian dimensions).
-   - **RULE-QA-008**: 3D bounding box overlap / penetration detection via volumetric AABB Intersection-over-Union (IoU).
-   - **RULE-QA-009**: Ghost annotation detection ($0$ points inside bounding box).
-   - **RULE-QA-010**: Low-density point warning ($<5$ points).
-   - Human Review Workflow: Three-state sign-off (`Pending`, `Approved`, `Needs Correction`) with reviewer audit notes.
+### Annotation Quality Assurance
+- Validate annotation metadata and geometry.
+- Identify potential labeling inconsistencies and invalid dimensions.
+- Review flagged annotations before approval.
+- Track pending, approved, and correction-required annotations.
 
-6. **Dataset Export & Audit Trail**
-   - Formats: Industry-standard **JSON** (schema-validated with scene metadata and QA report) and **CSV** tabular export.
-   - Built-in JSON re-import validator for roundtrip integrity verification.
-   - Audit trail capturing timestamps, operator signatures, and granular actions.
+### Dataset Export
+- Export structured annotation data in supported formats.
+- Preserve object labels and geometric information.
+- Generate validation summaries for dataset review.
 
-7. **Perception Analytics Dashboard**
-   - Real-time project metrics: total points, annotated 3D objects, approval progress bar, class distribution histogram, and QA issue severity breakdown.
+### Additional Workspace Tools
+- Annotation dashboard
+- Audit trail
+- Python utilities
+- Dataset review and export workflow
 
----
+## Technology Stack
 
-## 🛠️ Technology Stack
+The final technology stack depends on the implementation.
 
-- **Frontend / WebGL**: React 19, TypeScript, Three.js, Tailwind CSS, Lucide Icons, Motion.
-- **Python Backend**: Python 3.10+, NumPy, pandas, Pydantic, Open3D, Streamlit.
-- **Testing**: `pytest` and Python `unittest` test suite.
-- **DevOps**: Docker, Docker Compose.
+Potential technologies include:
 
----
+- **Python** — data processing and validation
+- **Open3D** — 3D point-cloud processing and visualization
+- **NumPy** — numerical operations
+- **Streamlit** — interactive application interface
+- **JSON / CSV** — structured annotation export
+- **pytest** — automated testing
+- **Docker** — reproducible execution
 
-## 📂 Repository Structure
+Only technologies actually used by the application should be listed as implemented dependencies.
 
-```text
-├── Dockerfile                   # Reproducible container configuration
-├── requirements.txt             # Python dependencies
-├── run_tests.py                 # Automated unit test runner
-├── data/
-│   └── samples/                 # Sample datasets (PCD, XYZ, JSON, QA report)
-│       ├── urban_intersection.pcd
-│       ├── pedestrian_crossing.xyz
-│       ├── sample_annotations.json
-│       └── sample_qa_report.json
-├── pointcloud_pro/              # Core Python library
-│   ├── __init__.py
-│   ├── models.py                # BoundingBox3D, PointCloudMetadata, ReviewStatus
-│   ├── io.py                    # Parsers for PCD, PLY, and XYZ formats
-│   ├── scene_generator.py       # Realistic synthetic LiDAR scene generator
-│   ├── segmentation.py          # Point-in-box and semantic labeling
-│   ├── qa.py                    # Automated QA rules engine and 3D IoU calculator
-│   ├── exporter.py              # JSON/CSV export and re-import schema validator
-│   └── app.py                   # Streamlit interactive application
-├── tests/                       # Unit tests
-│   ├── test_models.py
-│   ├── test_io.py
-│   ├── test_qa_rules.py
-│   ├── test_segmentation.py
-│   └── test_export.py
-└── src/                         # Interactive Three.js WebGL Studio (Port 3000)
-    ├── App.tsx
-    ├── types/pointcloud.ts
-    ├── constants/classes.ts
-    ├── utils/fileParsers.ts
-    ├── utils/syntheticData.ts
-    ├── utils/qaEngine.ts
-    ├── utils/exporter.ts
-    └── components/
-        ├── PointCloudCanvas.tsx
-        ├── AnnotationSidebar.tsx
-        ├── QAPanel.tsx
-        ├── SegmentationPanel.tsx
-        ├── DashboardView.tsx
-        ├── SceneLoaderModal.tsx
-        ├── AuditTrailModal.tsx
-        └── ExportModal.tsx
-```
+## Annotation Workflow
 
----
+1. Load a point-cloud scene.
+2. Inspect the scene in the 3D viewer.
+3. Create or modify object annotations.
+4. Assign object classes and geometric boundaries.
+5. Run annotation validation checks.
+6. Review flagged issues and correct annotations.
+7. Approve annotations and export the results.
 
-## 🚀 Quick Start Guide
+## Example Scene
 
-### Option 1: Running the Live Web Application (Port 3000)
-The web studio runs directly in the current workspace via Vite:
+The development interface includes an urban-intersection point-cloud scene.
+
+Example values displayed in the development screenshot:
+
+| Metric | Value |
+|---|---:|
+| Scene | `urban_intersection.pcd` |
+| Point count | 5,015 |
+| 3D boxes | 6 |
+| Approved annotations | 0 of 6 |
+
+These values describe the displayed example scene, not a benchmark result.
+
+## Getting Started
+
+Clone the repository:
+
 ```bash
-npm run dev
-```
-Open `http://localhost:3000` to interact with the full 3D LiDAR annotation workstation in your browser.
-
-### Option 2: Running the Python Streamlit Application
-Install dependencies and run:
-```bash
-pip install -r requirements.txt
-streamlit run pointcloud_pro/app.py
+git clone https://github.com/jiten54/pointcloud-pro-annotation-qa.git
+cd pointcloud-pro-annotation-qa
 ```
 
-### Option 3: Running via Docker
+Follow the setup instructions generated by the actual project implementation. If the project uses Python, a typical environment setup is:
+
 ```bash
-docker build -t pointcloud-pro .
-docker run -p 8501:8501 pointcloud-pro
+python -m venv .venv
 ```
-Navigate to `http://localhost:8501`.
+
+Activate the environment and install the dependencies from the project's `requirements.txt` file if provided.
+
+Run the application using its documented entry point.
+
+> **Note:** Update the repository URL, dependency list, and run commands if your actual repository uses a different structure or deployment setup.
+
+## Project Goals
+
+- Demonstrate familiarity with 3D point-cloud annotation concepts.
+- Practice object classification and bounding-box inspection.
+- Build an annotation review and quality-control workflow.
+- Support structured data preparation for computer-vision applications.
+- Improve reproducibility and traceability in annotation tasks.
+
+## Limitations
+
+- Annotation quality depends on the input data and review process.
+- Automated quality checks identify potential problems and do not replace human inspection.
+- Supported file formats, segmentation interactions, and export schemas depend on the implemented functionality.
+- No accuracy or productivity benchmark is claimed without a reproducible evaluation.
+
+## Future Improvements
+
+- Add more point-cloud formats and dataset import options.
+- Support frame-to-frame object tracking.
+- Add configurable annotation guidelines.
+- Improve point-level selection and segmentation tools.
+- Add reviewer permissions and detailed audit reports.
+- Create reproducible tests for annotation geometry and export validation.
+
+## Intended Applications
+
+- LiDAR annotation practice
+- Computer vision dataset preparation
+- 3D object detection workflows
+- Robotics and autonomous-driving research
+- Annotation quality assurance
+
+## Author
+
+**Jiten Moni Das**
+
+GitHub: [@jiten54](https://github.com/jiten54)
 
 ---
 
-## 🧪 Testing and Engineering
-
-To execute the automated unit test suite:
-```bash
-python3 run_tests.py
-# Or with pytest:
-pytest tests/ -v
-```
-
-### Test Coverage Highlights:
-- **Geometry & Constraints**: Validates strictly positive dimensions, rejects `NaN`/`Inf` coordinates, validates class enums, and computes 3D volume.
-- **IO Robustness**: Verifies header parsing, coordinate tokenization, and graceful failure on empty or malformed files.
-- **QA Rules**: Tests duplicate ID detection, out-of-bounds alerts, dimensional anomalies, and 3D box collisions.
-- **Segmentation**: Tests oriented bounding box point containment and label correspondence.
-- **Roundtrip Export**: Tests JSON schema conformance, CSV serialization, and re-import deserialization.
-
----
-
-## 📋 Sample Workflow for Remote Annotator
-
-1. **Ingest Scene**:
-   - Choose a sample synthetic scene or upload your own `.pcd`, `.ply`, or `.xyz` file.
-   - Inspect the metadata panel for point count and coordinate bounds.
-2. **Orient 3D Perception**:
-   - Switch between **Perspective**, **Top-Down (BEV)**, and **Side** camera angles.
-   - Toggle color modes (e.g., Z-Height for curb detection, Intensity for lane markings).
-3. **Annotate 3D Bounding Boxes**:
-   - Click **Add Box** and select a target class (`car`, `pedestrian`, etc.).
-   - Adjust $[x, y, z]$ center position and yaw angle to align with the point cloud cluster.
-   - Observe the heading indicator arrow to ensure proper vehicle orientation.
-4. **Segment Points**:
-   - Use the **Segment In Box** tool to transfer 3D bounding box class labels to the enclosed points.
-5. **Run Quality Assurance**:
-   - Open the **QA Inspector** tab to review heuristic warnings (overlaps, ghost boxes, low density).
-   - Resolve critical issues and mark boxes as `Approved` or `Needs Correction`.
-6. **Export & Audit**:
-   - Download the final validated **JSON** or **CSV** dataset with complete audit history.
-
----
-
-## ⚖️ Synthetic vs. Real Data Notice
-All sample datasets bundled in `data/samples/` and generated dynamically in the application are **synthetically generated** mathematical representations designed for safe, open-source testing and portfolio demonstration without licensing or privacy constraints.
+*PointCloud Pro is an independent portfolio project for demonstrating 3D annotation and data-quality workflows. It is not affiliated with DatoviaPlayHouse or any other employer.*
